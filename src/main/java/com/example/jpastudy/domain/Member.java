@@ -1,5 +1,6 @@
 package com.example.jpastudy.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class Member {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -38,6 +39,10 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
