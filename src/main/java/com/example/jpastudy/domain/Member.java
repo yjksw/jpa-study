@@ -22,8 +22,21 @@ public class Member {
     protected Member() {
     }
 
+    public Member(String name) {
+        this(null, name, null);
+    }
+
     public Member(String name, Team team) {
+        this(null, name, team);
+    }
+
+    public Member(Long id, String name, Team team) {
+        this.id = id;
         this.name = name;
+        this.team = team;
+    }
+
+    public void setTeam(Team team) {
         this.team = team;
     }
 
