@@ -1,7 +1,9 @@
 package com.example.jpastudy.domain;
 
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ public class Member {
 
     private String name;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -51,5 +53,24 @@ public class Member {
 
     public Team getTeam() {
         return team;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Member member = (Member) o;
+        return Objects.equals(getId(), member.getId()) && Objects
+            .equals(getName(), member.getName()) && Objects
+            .equals(getTeam(), member.getTeam());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getTeam());
     }
 }
