@@ -1,12 +1,8 @@
 package com.example.jpastudy.domain;
 
-<<<<<<< HEAD
 import java.util.Objects;
-=======
->>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
