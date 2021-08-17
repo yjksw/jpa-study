@@ -1,6 +1,9 @@
 package com.example.jpastudy.domain;
 
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +21,7 @@ public class Member {
 
     private String name;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "team_id")
     private Team team;
 

@@ -1,20 +1,30 @@
 package com.example.jpastudy.proxy;
 
+<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+=======
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 import com.example.jpastudy.domain.Member;
 import com.example.jpastudy.domain.MemberRepository;
 import com.example.jpastudy.domain.Team;
 import javax.persistence.EntityManager;
+<<<<<<< HEAD
 import org.hibernate.LazyInitializationException;
+=======
+import javax.swing.text.html.parser.Entity;
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 @DisplayName("JPA 프록시 테스트")
 @DataJpaTest
 public class ProxyTest {
@@ -27,6 +37,7 @@ public class ProxyTest {
 
     @DisplayName("em.find()는 실제 entity를 조회하여 가져온다.")
     @Test
+<<<<<<< HEAD
     void find_actualEntity() {
 
         Member member = new Member("member1");
@@ -50,6 +61,9 @@ public class ProxyTest {
     @DisplayName("em.getReference()는 해당 entity에 대한 proxy 객체를 가져온다.")
     @Test
     void getReference_proxyEntity() {
+=======
+    void emFind() {
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
 
         Member member = new Member("member1");
         Team team = new Team("Team A");
@@ -61,6 +75,7 @@ public class ProxyTest {
         testEntityManager.clear();
 
         EntityManager em = testEntityManager.getEntityManager();
+<<<<<<< HEAD
         Member findMember = em.getReference(Member.class, savedMember.getId()); //아무 쿼리가 호출되지 않는다.
 
         assertThat(findMember.getId()).isNotNull(); //getId()는 여전히 쿼리는 호출되지 않는다.
@@ -180,5 +195,8 @@ public class ProxyTest {
 
         assertThat(memberIsLoaded).isTrue(); //findMember 는 실제 entity 이므로 결과값이 true 이다.
         assertThat(teamIsLoaded).isFalse(); //team 은 프록시 객체이므로 결과값이 false 이다.
+=======
+        Member emFindMember = em.find(Member.class, savedMember.getId());
+>>>>>>> 247d7c3c19f2c0dfdb5326952ccc042e47f0b8b3
     }
 }
