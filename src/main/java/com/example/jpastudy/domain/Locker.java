@@ -1,7 +1,6 @@
 package com.example.jpastudy.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,37 +8,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Member {
+public class Locker {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-    protected Member() {
+    public Locker() {
     }
 
-    public Member(String name) {
+    public Locker(String name) {
         this.name = name;
     }
 
-    public Member(String name, Team team) {
+    public Locker(String name, Team team) {
         this(null, name, team);
     }
 
-    public Member(Long id, String name, Team team) {
+    public Locker(Long id, String name, Team team) {
         this.id = id;
         this.name = name;
         this.team = team;
     }
 
     public void setTeam(Team team) {
-        this.team = team;
-    }
+        this.team = team;    }
 
     public Long getId() {
         return id;
