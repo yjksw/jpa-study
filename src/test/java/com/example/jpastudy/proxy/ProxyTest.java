@@ -179,4 +179,28 @@ public class ProxyTest {
         assertThat(memberIsLoaded).isTrue(); //findMember 는 실제 entity 이므로 결과값이 true 이다.
         assertThat(teamIsLoaded).isFalse(); //team 은 프록시 객체이므로 결과값이 false 이다.
     }
+
+    @DisplayName("Lazy로딩 된 객체의 getId()는 뭘까")
+    @Test
+    void find_lazyLoadingEntity_getId() {
+
+        Member member = new Member("member1");
+        Team team = new Team("Team A");
+        member.setTeam(team);
+
+        Member savedMember = memberRepository.save(member);
+
+        testEntityManager.flush();
+        testEntityManager.clear();
+
+        EntityManager em = testEntityManager.getEntityManager();
+        Member findMember = em.getReference(Member.class, savedMember.getId()); //아무 쿼리가 호출되지 않는다.
+
+        assertThat(findMember.getId()).isNotNull(); //getId()는 여전히 쿼리는 호출되지 않는다.
+        assertThat(findMember.getClass()).isNotEqualTo(Member.class); //초기화 되어도 여전히 실제 Entity 클래스가 아니다.
+
+        System.out.println("====================Member에 대한 select query=========================");
+        assertThat(findMember.getTeam()).isNotNull(); // Team이 아닌 Member에 대한 select query가 호출된다.
+        assertThat(findMember.getTeam().getId()).isNotNull(); // 아무 쿼리도 호출되지 않는다.
+    }
 }
