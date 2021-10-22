@@ -1,6 +1,7 @@
 package com.example.jpastudy.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class Member {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -38,6 +39,10 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
