@@ -9,7 +9,6 @@ import com.example.jpastudy.domain.Team;
 import com.example.jpastudy.domain.TeamRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,11 +51,10 @@ public class BatchSizeTest {
         memberRepository.save(member2);
 
         testEntityManager.flush();
+        testEntityManager.clear();
 
         // when
-        List<Member> members = new ArrayList<>();
-        members.add(memberRepository.findById(1L).get()); // Member 를 조회하는 쿼리가 생성된다.
-        members.add(memberRepository.findById(2L).get());
+        List<Member> members = memberRepository.findAll(); // Member 를 조회하는 쿼리가 수행된다.
 
         List<String> teamNames = members.stream()
             .map(member -> member.getTeam().getName())
@@ -93,13 +91,10 @@ public class BatchSizeTest {
 
         testEntityManager.flush();
 
-        System.out.println("===============================");
         List<Member> members = new ArrayList<>();
         members.add(memberRepository.findById(1L).get()); // 영속성 컨텍스트에 있는 Member를 로딩한다.
-        members.add(memberRepository.findById(2L).get());
-
-
-        System.out.println("===============================");
+        members.add(memberRepository.findById(2L)
+            .get()); //findAll로 해도 무방하지만 그렇다면 쿼리가 생성되므로 영속성 컨텍스트에 있는 것을 확인하기 위해서 각자 id로 조회한다.
 
         List<String> teamNames = members.stream()
             .map(member -> member.getTeam().getName()) // 각 멤버의 개수만큼 team을 select하는 쿼리를 실행한다.
